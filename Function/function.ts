@@ -49,4 +49,16 @@ function area(shape: Shape): number {
   }
 }
 
-// overload
+// overload （不同版本的 function) -> 盡量避免使用 
+// 編譯時會把重載特徵刪除
+// 重載中回傳的每個型別和參數 需可指派給相同索引位置的參數
+// 實作時須與所有重載 signature 相容
+function createDate(timestamp: number): Date
+function createDate(month: number, day: number, year: number): Date
+function createDate(monthOrTimestamp: number , day?:number, year?:number) {
+    return day === undefined || year === undefined ? new Date(monthOrTimestamp) : new Date(year, monthOrTimestamp, day)
+}
+
+createDate(4444)
+createDate(7, 84, 1994)
+// createDate(1, 4) // error!
